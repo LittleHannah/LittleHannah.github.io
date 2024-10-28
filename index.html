@@ -5,32 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gradio App on GitHub Pages</title>
     <style>
-        /* Basic styling for buttons and iframe */
+        /* Basic styling for page layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Button container styling */
         .button-container {
-            margin: 20px;
-            text-align: center;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
         }
         button {
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .iframe-container {
-            display: none;
-            width: 100%;
-            height: 800px;
+            padding: 8px 16px;
             border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #6c757d;
+            color: #fff;
+            font-size: 14px;
+            transition: background-color 0.3s;
         }
-        /* Highlight the default selected button */
+        button:hover {
+            background-color: #5a6268;
+        }
         .selected {
             background-color: #4CAF50;
-            color: white;
+        }
+
+        /* iFrame container styling */
+        .iframe-container {
+            width: 100%;
+            border: none;
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Gradio Application</h1>
 
     <!-- Buttons to choose environment -->
     <div class="button-container">
@@ -40,9 +62,9 @@
 
     <!-- iFrames for Production and Development environments -->
     <iframe id="production-iframe" class="iframe-container" src="https://99658eb72b88c87db5.gradio.live/" style="display: block;"></iframe>
-    <iframe id="development-iframe" class="iframe-container" src="https://7592e591d89084a70d.gradio.live"></iframe>
+    <iframe id="development-iframe" class="iframe-container" src="https://7592e591d89084a70d.gradio.live" style="display: none;"></iframe>
 
-    <!-- JavaScript to toggle iframe display based on button selection -->
+    <!-- JavaScript to toggle iframe display based on button selection and auto-adjust iframe height -->
     <script>
         function showIframe(environment) {
             // Hide both iframes initially
@@ -61,7 +83,21 @@
                 document.getElementById("development-iframe").style.display = "block";
                 document.getElementById("development-button").classList.add("selected");
             }
+            adjustIframeHeight();
         }
+
+        // Adjust iframe height to fit content
+        function adjustIframeHeight() {
+            const iframes = document.querySelectorAll(".iframe-container");
+            const newHeight = `${window.innerHeight - 40}px`; // Adjusted offset for top buttons only
+            iframes.forEach(iframe => {
+                iframe.style.height = newHeight;
+            });
+        }
+
+        // Adjust height on load and resize
+        window.addEventListener("resize", adjustIframeHeight);
+        window.addEventListener("load", adjustIframeHeight);
     </script>
 </body>
 </html>
