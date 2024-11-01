@@ -54,34 +54,22 @@
 </head>
 <body>
 
-    <!-- Buttons to choose environment -->
-    <div class="button-container">
-        <button id="production-button" class="selected" onclick="showIframe('production')">Production</button>
-        <button id="development-button" onclick="showIframe('development')">Development</button>
-    </div>
-
     <!-- iFrames for Production and Development environments -->
-    <iframe id="production-iframe" class="iframe-container" src="https://e5da58206a2ec1f9c9.gradio.live" style="display: block;"></iframe>
-    <iframe id="development-iframe" class="iframe-container" src="https://b5b9bc782684a25411.gradio.live" style="display: none;"></iframe>
+    <iframe id="production-iframe" class="iframe-container" src="https://1b7ea8912edbd07fac.gradio.live" style="display: block;"></iframe>
 
     <!-- JavaScript to toggle iframe display based on button selection and auto-adjust iframe height -->
     <script>
         function showIframe(environment) {
             // Hide both iframes initially
             document.getElementById("production-iframe").style.display = "none";
-            document.getElementById("development-iframe").style.display = "none";
 
             // Remove 'selected' class from both buttons
             document.getElementById("production-button").classList.remove("selected");
-            document.getElementById("development-button").classList.remove("selected");
 
             // Show the selected iframe and add 'selected' class to the button
             if (environment === 'production') {
                 document.getElementById("production-iframe").style.display = "block";
                 document.getElementById("production-button").classList.add("selected");
-            } else if (environment === 'development') {
-                document.getElementById("development-iframe").style.display = "block";
-                document.getElementById("development-button").classList.add("selected");
             }
             adjustIframeHeight();
         }
